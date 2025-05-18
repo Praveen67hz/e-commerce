@@ -1,10 +1,19 @@
-import React from 'react'
 import './CartItems.css'
 import { ShopContext } from '../../Context/ShopContext'
 import { useContext } from 'react'
 import remove_icon from '../Assets/cart_cross_icon.png'
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 const CartItems = () => {
-    const{getTotalCartAmount,all_product,cartItems,removeFromCart}=useContext(ShopContext);
+    const{getTotalCartAmount,products,cartItems,removeFromCart}=useContext(ShopContext);
+    const navigate = useNavigate();
+
+const handleRemoveFromCart = (id) => {
+removeFromCart(id);
+toast.error("Removed from Cart!");
+};
+
   return (
     <div className='cartitems'>
       <div className="cartitem-format-main">
@@ -16,7 +25,7 @@ const CartItems = () => {
         <p>Remove</p>
       </div>
       <hr/>
-      {all_product.map((e)=>{
+      {products.map((e)=>{
         if(cartItems[e.id]>0)
         {
         return <div key={e.id}>
@@ -26,7 +35,7 @@ const CartItems = () => {
             <p className='cartitems-price'>${e.new_price}</p>
             <button className='cartitems-quantity'>{cartItems[e.id]}</button>
             <p className='cartitems-total'>${e.new_price*cartItems[e.id]}</p>
-            <img className='cartItems-remove-icon'src={remove_icon} onClick={()=>{removeFromCart(e.id)}} alt="" />
+            <img className='cartItems-remove-icon'src={remove_icon} onClick={()=>handleRemoveFromCart(e.id)} alt="" />
         </div>
         <hr/>
       </div>
@@ -35,35 +44,19 @@ const CartItems = () => {
     })}
        <div className="cartitems-down">
         <div className="cartitems-totals">
-           <h1>cart Totals</h1>
+           <h1>Subtotal</h1>
            <div>
             <div className="cartitems-total-item">
-              <p>Subtotal</p>
-              <p>${getTotalCartAmount()}</p>
-            </div>
-            <hr />
-            <div className="cartitems-total-item">
-              <p>Shipping Fee</p>
-              <p>Free</p>
-            </div>
-            <hr />
-            <div className="cartitems-total-item">
-              <h3>Total</h3>
+              <h3>Subtotal</h3>
               <h3>${getTotalCartAmount()}</h3>
             </div>
+            <hr />
             <div>
-              <button>PROCEED TO CHECKOUT</button>
+              <button onClick={()=> navigate('/shipping')}>PROCEED TO SHIPPING</button>
             </div>
            </div>
         </div>
        </div>
-       <div className="cartitems-promocode">
-              <p>If you have a promo code ,Enter it here</p>
-               <div className="cartitems-promobox">
-                <input type='text' placeholder='promo code'/>
-                <button>Submit</button>
-               </div>
-             </div>
     </div>
     
   )

@@ -1,0 +1,110 @@
+.signup-container {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #fce3fe, #ff9dde);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-box {
+    width: 420px;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transform: scale(0.9);
+    animation: popUp 0.4s ease-in-out forwards;
+}
+
+@keyframes popUp {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.signup-box h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff4141;
+    margin-bottom: 20px;
+}
+
+.signup-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.signup-fields input {
+    height: 50px;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.signup-fields input:focus {
+    border-color: #ff4141;
+    box-shadow: 0px 0px 10px rgba(255, 65, 65, 0.3);
+}
+
+.admin-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #5c5c5c;
+    margin-bottom: 15px;
+}
+
+.admin-checkbox input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.signup-box button {
+    width: 70%; 
+    max-width: 300px; 
+    height: 50px;
+    background: #ff4141;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.signup-box button:hover {
+    background: linear-gradient(to right, #d93636, #ff4141);
+    transform: translateY(-3px);
+}
+
+.signup-text {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #5c5c5c;
+}
+
+.signup-text a {
+    color: #ff4141;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.signup-text a:hover {
+    color: #d93636;
+}

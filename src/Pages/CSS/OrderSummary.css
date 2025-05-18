@@ -1,0 +1,11 @@
+.order-summary {
+    width: 100%;
+    min-height: 110vh;
+    background: linear-gradient(135deg, #fce3fe, #ff9dde);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    padding: 40px 20px;
+    box-sizing: border-box;
+}

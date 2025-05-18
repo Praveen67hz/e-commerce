@@ -1,0 +1,124 @@
+.payment-container {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #fce3fe, #ff9dde);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .payment-box {
+    width: 100%;
+    max-width: 600px;
+    padding: 32px;
+    background: white;
+    border-left : 4px solid #ff4141;
+    border-right : 4px solid #ff4141;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.4s ease-in-out;
+  }
+  
+  .payment-box h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff4141;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .payment-summary p,
+  .payment-summary h3 {
+    font-size: 16px;
+    color: #444;
+    margin: 6px 0;
+  }
+  
+  .payment-summary hr {
+    margin: 16px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+  }
+  
+  .payment-summary h3 {
+    font-size: 18px;
+    color: #000;
+    font-weight: 600;
+  }
+  
+  .payment-form {
+    margin-top: 24px;
+  }
+  
+  .payment-form h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 16px;
+  }
+  
+  .payment-form input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+  
+  .payment-form input:focus {
+    border-color: #ff4141;
+    box-shadow: 0px 0px 8px rgba(255, 65, 65, 0.3);
+    outline: none;
+  }
+  
+  .payment-form-row {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .payment-form-row input {
+    flex: 1;
+  }
+  
+  .payment-form button {
+    width: 100%;
+    height: 50px;
+    background: #ff4141;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 12px;
+  }
+  
+  .payment-form button:hover {
+    background: linear-gradient(to right, #d93636, #ff4141);
+    transform: translateY(-3px);
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .payment-box {
+      padding: 24px;
+    }
+  
+    .payment-form-row {
+      flex-direction: column;
+    }
+  }
+  

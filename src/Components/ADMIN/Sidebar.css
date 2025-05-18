@@ -1,0 +1,72 @@
+.admin-sidebar { 
+  width: 220px;
+  height: 100vh;
+  background: linear-gradient(to bottom right, #1e1e2f, #29293d);
+  color: #fff;
+  padding: 24px;
+  position: fixed;
+  box-sizing: border-box;
+  left: 0;
+  top: 95px;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 100;
+}
+
+.admin-sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 28px;
+  color: #fce3fe;
+  text-align: center;
+  letter-spacing: 1px;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(252, 227, 254, 0.3);
+  border-bottom: 1px solid #3c3c5a;
+  padding-bottom: 10px;
+}
+
+.admin-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-sidebar li {
+  margin: 16px 0;
+}
+
+.admin-sidebar a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 10px 14px;
+  display: block;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  position: relative;
+  font-weight: 500;
+}
+
+.admin-sidebar a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background-color: transparent;
+  border-radius: 0 4px 4px 0;
+  transition: background-color 0.3s ease;
+}
+
+.admin-sidebar a:hover {
+  background-color: #fce3fe;
+  color: #1e1e2f;
+  padding-left: 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(252, 227, 254, 0.15);
+}
+
+.admin-sidebar a:hover::before {
+  background-color: #fce3fe;
+}
