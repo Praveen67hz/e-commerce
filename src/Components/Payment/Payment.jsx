@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import './Payment.css';
 import { ShopContext } from '../../Context/ShopContext';
 import { useNavigate } from 'react-router-dom';

@@ -1,7 +1,9 @@
-import React, { useState, useContext } from "react";
+import  { useState, useContext } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import { ShopContext } from '../../Context/ShopContext';
 import "./Signup.css";
+import { toast } from "react-toastify";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Signup = () => {
   const { signupUser } = useContext(ShopContext);
@@ -12,6 +14,11 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const handleSignup = () => {
+    if(!email.includes("@") || !password.length >= 6)
+    {
+      toast.error("Invalid format for email and  password");
+      return;
+    }
     signupUser(name, email, password, isAdmin);
     navigate("/login");
   };
@@ -29,6 +36,21 @@ const Signup = () => {
           <input type="checkbox" id="admin" onChange={(e) => setIsAdmin(e.target.checked)} />
           <label htmlFor="admin">Register as Admin</label>
         </div>
+
+        <div className="google-signup">
+                    <GoogleLogin
+                        onSuccess={credentialResponse => {
+                            window.location.href = "http://localhost:5000/api/auth/google";
+                        }}
+                        onError={() => {
+                            toast.error("Google signup failed");
+                        }}
+                        shape="rectangular"
+                        size="large"
+                        text="signup_with"
+                    />
+                </div>
+                
         <button onClick={handleSignup}>Sign Up</button>
         <p className="signup-text">
           Already have an account? <Link to = "/login">Login</Link>

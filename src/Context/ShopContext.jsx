@@ -1,7 +1,6 @@
 import  { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "../API/axios";
-
 export const ShopContext = createContext(null);
 
 
@@ -36,15 +35,18 @@ const ShopContextProvider = (props) => {
       
 
     const [cartItems, setCartItems] = useState(() => {
-        return JSON.parse(localStorage.getItem("cartItems")) || getDefaultCart();
+    try {
+        return JSON.parse(localStorage.getItem("cartItems")) || {};
+    } catch {
+        return {};
+    }
     });
 
     
-    const clearCart =()=>{
-        setCartItems(getDefaultCart);
-        localStorage.setItem('cartItems' , JSON.stringify(getDefaultCart()));
+    const clearCart = () => {
+    setCartItems({});
+    localStorage.setItem("cartItems", JSON.stringify({}));
     };
-
 
     const [couponCode, setCouponCode] = useState(() => {
         return localStorage.getItem("couponCode") || "";
@@ -55,7 +57,6 @@ const ShopContextProvider = (props) => {
       });
 
 
-     // dark mode 
      const [darkMode , setDarkMode] = useState(()=>{
         const saved = localStorage.getItem("darkMode");
         return saved ? JSON.parse(saved) : false;
@@ -119,6 +120,8 @@ const ShopContextProvider = (props) => {
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
     }, [cartItems]);
 
+    
+
     const loginUser = async (email, password) => {
         try{
            const response = await axios.post("/api/auth/login",{email,password});
@@ -159,6 +162,38 @@ const ShopContextProvider = (props) => {
         };
     };
 
+     const handleGoogleLogin = async (token) => {
+        try {
+            const response = await axios.get("/api/auth/google/success", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            
+            const { token: newToken, user } = response.data;
+            
+            localStorage.setItem("token", newToken);
+            localStorage.setItem("user", JSON.stringify(user));
+            setUser(user);
+            toast.success("Google login successful!");
+            return true;
+        } catch (err) {
+            toast.error("Google login failed");
+            return false;
+        }
+    };
+     
+     useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        
+        if (token) {
+            handleGoogleLogin(token).then(success => {
+                if (success) {
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            });
+        }
+    }, []);
+
     const logoutUser = () => {
         localStorage.removeItem("token"); 
         localStorage.removeItem("user");
@@ -184,16 +219,6 @@ const ShopContextProvider = (props) => {
         });
     };
 
-    
-const getDefaultCart = () => {
-    let cart = {};
-    if(!products || products.length === 0) return cart;
-
-    for (let index = 0; index < products.length + 1; index++) {
-        cart[index] = 0;
-    }
-    return cart;
-};
 
     const getTotalCartAmount = () => {
         let totalAmount = 0;
@@ -276,7 +301,8 @@ const getDefaultCart = () => {
         shippingCost,
         setShippingCost,
         shippingDetails,
-        setShippingDetails
+        setShippingDetails,
+        handleGoogleLogin,
     };
 
     return (

@@ -29,9 +29,11 @@ import TermsCondition from './Components/Footer/TermsCondition';
 import CancellationandRefund from './Components/Footer/CancellationandRefund';
 import ShippingDelivery from './Components/Footer/ShippingDelivery';
 import ContactUs from './Components/Footer/ContactUs';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
   return (
+     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
     <div>
       <BrowserRouter>
         <Navbar />
@@ -81,6 +83,7 @@ function App() {
 
       </BrowserRouter>
     </div>
+    </GoogleOAuthProvider>
   );
 }
 

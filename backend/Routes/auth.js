@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");;
 const User = require("../Models/User");
+const passport = require("passport");
 const verifyToken = require("../Middlewares/authMiddleware");
 
 const  router = express.Router();
@@ -28,7 +29,7 @@ router.post("/signup", async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      isAdmin: role === "admin" 
+      isAdmin: role === "admin"  
     });
 
     await newUser.save();
@@ -65,6 +66,35 @@ router.post("/login", async(req,res) => {
       });
     } catch (err) {
         res.status(500).json({message: "Login failed",error:err.message});
+    }
+});
+
+router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/login",
+    session: false,
+  }),
+  (req, res) => {
+    const {  token } = req.user;
+
+    res.redirect(`http://localhost:5173?token=${token}`);
+  }
+);
+
+router.get("/google/success", verifyToken, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+        const token = jwt.sign(
+            { id: user._id, isAdmin: user.isAdmin },
+            process.env.JWT_SECRET,
+            { expiresIn: "1d" }
+        );
+        res.json({ token, user });
+    } catch (err) {
+        res.status(500).json({ message: "Failed to authenticate" });
     }
 });
 
